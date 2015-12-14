@@ -29,7 +29,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         Contact user = values[position];
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.contact_list_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_contact_list, parent, false);
         }
         TextView name = (TextView) convertView.findViewById(R.id.lb_contact_name);
         name.setText(user.getFullName());

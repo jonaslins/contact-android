@@ -4,13 +4,14 @@ import android.provider.ContactsContract;
 
 import com.orm.SugarRecord;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by tcbenkhard on 04/12/15.
  */
-public class Contact extends SugarRecord<Contact> {
+public class Contact extends SugarRecord<Contact> implements Serializable{
     private String firstname;
     private String lastname;
     private List<PhoneDetail> phonenumbers;

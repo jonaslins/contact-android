@@ -39,5 +39,9 @@
             android:name=".activity.CreateContactActivity"
             android:label="@string/title_activity_create_contact"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.ViewContactActivity"
+            android:label="@string/title_activity_view_contact"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 </manifest>

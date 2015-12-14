@@ -21,6 +21,16 @@ Feature: Edit a contact
     And I edit the contact
     Then I see the update contact screen
 
+  Scenario: I can change a contacts name
+    Given I have a MainActivity
+    And a contact with named "Hendrak", "Piet"
+    When I longpress contact "Hendrak, Piet"
+    And I edit the contact
+    And I enter the firstname "Pieter"
+    And I enter the lastname "Hendriks"
+    And I save the contact
+    Then the contact "Hendriks, Pieter" is displayed in the list
+    And the contact "Hendrak, Piet" is not displayed in the list
 
   Scenario: I can delete a contact
     Given I have a MainActivity

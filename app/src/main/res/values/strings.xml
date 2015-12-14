@@ -4,4 +4,5 @@
     <string name="headline">Hannah\'s birthday</string>
     <string name="subtitle">November 30th is Hannah Emerson\'s birthday!</string>
     <string name="title_activity_create_contact">CreateContactActivity</string>
+    <string name="title_activity_view_contact">ViewContactActivity</string>
 </resources>

@@ -3,9 +3,6 @@ package nl.benkhard.butterknifetest.test;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.test.ActivityInstrumentationTestCase2;
 
-import org.junit.BeforeClass;
-import org.junit.Rule;
-
 import cucumber.api.CucumberOptions;
 import cucumber.api.PendingException;
 import cucumber.api.java.Before;
@@ -23,12 +20,14 @@ import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.not;
+import static nl.benkhard.latte.actions.WaitAction.waitId;
+import static org.hamcrest.Matchers.notNullValue;
 
 /**
  * Created by tcbenkhard on 08/12/15.
@@ -90,8 +89,8 @@ public class MainActivitySteps extends ActivityInstrumentationTestCase2<MainActi
         onView(withId(R.id.txt_contact_lastname)).perform(typeText(lastname));
     }
 
-    @And("^I save the new contact$")
-    public void I_save_the_new_contact() throws Throwable {
+    @And("^I save the contact$")
+    public void I_save_the_contact() throws Throwable {
         onView(withId(R.id.btn_save_contact)).perform(click());
     }
 
@@ -134,5 +133,38 @@ public class MainActivitySteps extends ActivityInstrumentationTestCase2<MainActi
     @And("^I confirm the delete action$")
     public void I_confirm_the_delete_action() throws Throwable {
         onView(withText("Delete")).perform(click());
+    }
+
+    @And("^a contact with named \"([^\"]*)\", \"([^\"]*)\"$")
+    public void a_contact_with_named_(String lastname, String firstname) throws Throwable {
+        I_search_for("0612345678");
+        I_create_a_new_contact();
+        I_enter_the_firstname(firstname);
+        I_enter_the_lastname(lastname);
+        I_save_the_contact();
+        the_contact_is_displayed_in_the_list(lastname+", "+firstname);
+    }
+
+    @And("^I edit the contact$")
+    public void I_edit_the_contact() throws Throwable {
+        onView(withText("Edit contact")).perform(click());
+    }
+
+    @Then("^I see the update contact screen$")
+    public void I_see_the_update_contact_screen() throws Throwable {
+        onView(withId(R.id.txt_contact_firstname)).check(matches(isDisplayed()));
+        onView(withId(R.id.txt_contact_firstname)).check(matches(notNullValue()));
+        onView(withId(R.id.txt_contact_lastname)).check(matches(isDisplayed()));
+        onView(withId(R.id.txt_contact_lastname)).check(matches(notNullValue()));
+    }
+
+    @When("^I click on the contact \"([^\"]*)\"$")
+    public void I_click_on_the_contact(String contactname) throws Throwable {
+        onView(withText(contactname)).perform(click());
+    }
+
+    @Then("^I see the contacts details$")
+    public void I_see_the_contacts_details() throws Throwable {
+        onView(withId(R.id.txt_contact_name)).check(matches(isDisplayed()));
     }
 }

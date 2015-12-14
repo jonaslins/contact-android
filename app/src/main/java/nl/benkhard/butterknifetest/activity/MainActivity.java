@@ -23,6 +23,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 import nl.benkhard.butterknifetest.R;
 import nl.benkhard.butterknifetest.confirmation.ConfirmedCallback;
 import nl.benkhard.butterknifetest.confirmation.DeleteContactConfirmation;
@@ -102,6 +103,13 @@ public class MainActivity extends Activity implements ConfirmedCallback{
         Log.i(TAG, "Starting CreateContactActivity");
         Intent intent = CreateContactActivity.createIntent(this, number.getText().toString());
         startActivityForResult(intent, 0);
+    }
+
+    @OnItemClick(R.id.contact_list)
+    public void viewContact(View view, int position) {
+        Contact contact = contacts.get(position);
+        Intent intent = ViewContactActivity.createIntent(this, contact);
+        startActivity(intent);
     }
 
     private void resetFields() {

@@ -19,5 +19,5 @@ Feature: Create a contact
     When I create a new contact
     And I enter the firstname "Timo"
     And I enter the lastname "Benkhard"
-    And I save the new contact
+    And I save the contact
     Then the contact "Benkhard, Timo" is displayed in the list
